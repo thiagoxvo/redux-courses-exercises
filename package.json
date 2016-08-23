@@ -1,0 +1,35 @@
+{
+  "name": "redux-courses-exercises",
+  "version": "1.0.0",
+  "description": "Egghead Redux Courses Exercises",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --progress --profile --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagoxvo/redux-courses-exercises.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiagoxvo/redux-courses-exercises/issues"
+  },
+  "homepage": "https://github.com/thiagoxvo/redux-courses-exercises#readme",
+  "dependencies": {
+    "babel-core": "^6.13.2",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "copy-webpack-plugin": "^3.0.1",
+    "eslint": "^3.3.1",
+    "eslint-plugin-react": "^6.1.2",
+    "jsx-loader": "^0.13.2",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.0"
+  }
+}
