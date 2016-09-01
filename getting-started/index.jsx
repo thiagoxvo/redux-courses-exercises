@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -66,7 +67,7 @@ const todoApp = combineReducers({
   todos,
   visibilityFilter
 })
-const store = createStore(todoApp)
+// const store = createStore(todoApp)
 
 const Link = ({
   active,
@@ -90,6 +91,7 @@ const Link = ({
 class FilterLink extends React.Component {
 
   componentDidMount () {
+    const { store } = this.context
     this.unsubscribe = store.subscribe(() => this.forceUpdate())
   }
 
@@ -99,6 +101,7 @@ class FilterLink extends React.Component {
 
   render () {
     const props = this.props
+    const { store } = this.context
     const state = store.getState()
 
     return (
@@ -116,6 +119,9 @@ class FilterLink extends React.Component {
       </Link>
     )
   }
+}
+FilterLink.contextTypes = {
+  store: React.PropTypes.object
 }
 
 const Todo = ({
@@ -148,7 +154,7 @@ const TodoList = ({
   </ul>
 )
 
-const AddTodo = () => {
+const AddTodo = (props, {store}) => {
 let input
 return (
   <div>
@@ -167,6 +173,9 @@ return (
     </button>
   </div>
 )}
+AddTodo.contextTypes = {
+  store: React.PropTypes.object
+}
 
 const Footer = () => (
   <p>
@@ -188,6 +197,7 @@ const Footer = () => (
 
 class VisibleTodoList extends React.Component {
   componentDidMount () {
+    const { store } = this.context
     this.unsubscribe = store.subscribe(() => this.forceUpdate())
   }
 
@@ -197,6 +207,7 @@ class VisibleTodoList extends React.Component {
 
   render () {
     const props = this.props
+    const { store } = this.context
     const state = store.getState()
     return (
       <TodoList
@@ -209,7 +220,9 @@ class VisibleTodoList extends React.Component {
     )
   }
 }
-
+VisibleTodoList.contextTypes = {
+  store: React.PropTypes.object
+}
 
 let nextTodoId = 0
 const TodoApp = () => {
@@ -222,6 +235,8 @@ const TodoApp = () => {
 )}
 
 ReactDOM.render(
-  <TodoApp />,
+  <Provider store={createStore(todoApp)}>
+    <TodoApp />
+  </Provider>,
   document.getElementById('app')
 )
