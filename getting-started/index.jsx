@@ -154,7 +154,7 @@ const TodoList = ({
   </ul>
 )
 
-const AddTodo = (props, {store}) => {
+let AddTodo = ({dispatch}) => {
 let input
 return (
   <div>
@@ -162,7 +162,7 @@ return (
         input = node
       }} />
     <button onClick={() => {
-        store.dispatch({
+        dispatch({
           type: 'ADD_TODO',
           id: nextTodoId++,
           text: input.value
@@ -173,9 +173,7 @@ return (
     </button>
   </div>
 )}
-AddTodo.contextTypes = {
-  store: React.PropTypes.object
-}
+AddTodo = connect()(AddTodo)
 
 const Footer = () => (
   <p>
@@ -195,14 +193,14 @@ const Footer = () => (
   </p>
 )
 
-const mapStateToProps = (state) => {
+const mapTodoListStateToProps = (state) => {
   const { todos, visibilityFilter } = state
   return {
     todos: getVisibleTodos(todos, visibilityFilter)
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapTodoListDispatchToProps = (dispatch) => {
   return {
     onClickTodo: (id) => {
       dispatch({
@@ -214,8 +212,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const VisibleTodoList = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapTodoListStateToProps,
+  mapTodoListDispatchToProps
 )(TodoList)
 
 let nextTodoId = 0
